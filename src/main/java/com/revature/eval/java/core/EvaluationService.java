@@ -68,7 +68,7 @@ public class EvaluationService {
 				k++;
 			}
 		}
-		
+		}
 		//convert char array to string and make sure new string is all upper case
 		String acroString = new String(acro);
 		acroString = acroString.toUpperCase();
@@ -127,21 +127,29 @@ public class EvaluationService {
 		}
 
 		public boolean isEquilateral() {
-			// TODO Write an implementation for this method declaration
+			// all 3 sides same length
+			if (this.sideOne == this.sideTwo && this.sideOne == this.sideThree) {
+				return true;
+			}
 			return false;
 		}
 
 		public boolean isIsosceles() {
-			// TODO Write an implementation for this method declaration
+			if (this.sideOne == this.sideTwo || this.sideOne == this.sideThree || this.sideTwo == this.sideThree) {
+				return true;
+			}
 			return false;
 		}
 
 		public boolean isScalene() {
-			// TODO Write an implementation for this method declaration
+			// no sides are the same length
+			if (this.sideOne != this.sideTwo && this.sideOne != this.sideThree && this.sideTwo != this.sideThree ) {
+				return true;
+			}
 			return false;
 		}
-
 	}
+
 
 	/**
 	 * 4. Given a word, compute the scrabble score for that word.
@@ -159,8 +167,37 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int getScrabbleScore(String string) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		//convert string to all uppercase 
+		string = string.toUpperCase();
+		//use for loop to add up scrabble scores
+		int score = 0;
+		for (int i = 0; i < string.length(); i++) {
+			char tile = string.charAt(i);
+			if (tile == 'A'|| tile == 'E' || tile == 'I'|| tile == 'O' || tile ==  'U'
+					|| tile == 'L' || tile == 'N' || tile == 'R' || tile == 'S' || tile == 'T') {
+							score+= 1;
+					}
+			if (tile == 'D' || tile == 'G') {
+				score += 2;
+
+			}
+			if (tile == 'B' || tile == 'C' || tile == 'M' || tile == 'P') {
+				score += 3;
+			}
+			if (tile == 'F' || tile == 'H' || tile == 'V' || tile == 'W' || tile == 'Y') {
+				score += 4;
+			}
+			if (tile == 'K') {
+				score += 5;
+			}
+			if (tile == 'J' || tile == 'X') {
+				score += 8;
+			}
+			if (tile == 'Z') {
+				score += 10;
+			}
+		}
+		return score;
 	}
 
 	/**
@@ -195,8 +232,34 @@ public class EvaluationService {
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
 	public String cleanPhoneNumber(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		// find out how many numbers are in the string and add them to an invalid number
+		char[] invalid = new char[11];
+		int count = 0;
+		int j = 0;
+		for (int i = 0; i < string.length(); i++) {
+			char temp = string.charAt(i);
+			if (temp == '1'|| temp == '2' || temp == '3' || temp == '4' || temp == '5' || temp == '6'
+					|| temp == '7' || temp == '8' || temp == '9' || temp == '0' ) {
+				count++;
+				invalid[j] = temp;
+			}
+			j++;
+		}
+		//create new char array 
+		char[] newNumber = new char[10];
+		
+		//determine if country code needs to be removed
+		int transfer = 0;
+		if (count > 10) {
+			transfer++;
+		}
+		//transfer invalid number to new number
+		for (int i = 0; i < 10; i++) {
+			newNumber[i] = invalid[transfer];
+		}
+		
+		
+		return new String(newNumber);
 	}
 
 	/**
