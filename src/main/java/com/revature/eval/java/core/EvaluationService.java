@@ -37,8 +37,14 @@ public class EvaluationService {
 		//detect how many spaces (n) are in phrase.
 		int n = 0;
 		for (int i = 0; i < phrase.length(); i++) {
-			if (charPhrase[i] == ' ') {
-				n++;
+			
+			if ((charPhrase[i]>='a' && charPhrase[i]<='z') || (charPhrase[i]>='A' && charPhrase[i]<='Z')) {
+				n += 0;
+			}
+			else {
+				if (charPhrase[i + 1] != ' ') {
+					n++;
+				}
 			}
 		}
 		
@@ -53,7 +59,11 @@ public class EvaluationService {
 		k++;
 		//use iterator k for acronym array
 		for (int i = 0; i < phrase.length(); i++) {
-			if (charPhrase[i] == ' ') {
+			if ((charPhrase[i]>='a' && charPhrase[i]<='z') || (charPhrase[i]>='A' && charPhrase[i]<='Z')) {
+				
+			}
+			else {
+				if (charPhrase[i + 1] != ' ') {
 				acro[k] = charPhrase[i + 1];
 				k++;
 			}
