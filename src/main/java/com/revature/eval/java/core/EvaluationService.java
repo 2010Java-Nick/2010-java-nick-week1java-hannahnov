@@ -242,8 +242,8 @@ public class EvaluationService {
 					|| temp == '7' || temp == '8' || temp == '9' || temp == '0' ) {
 				count++;
 				invalid[j] = temp;
+				j++;
 			}
-			j++;
 		}
 		//create new char array 
 		char[] newNumber = new char[10];
@@ -256,6 +256,7 @@ public class EvaluationService {
 		//transfer invalid number to new number
 		for (int i = 0; i < 10; i++) {
 			newNumber[i] = invalid[transfer];
+			transfer++;
 		}
 		
 		
