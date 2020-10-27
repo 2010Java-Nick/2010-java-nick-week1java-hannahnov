@@ -30,8 +30,41 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String acronym(String phrase) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		
+		//convert phrase to char array;
+		
+		char[] charPhrase = phrase.toCharArray();
+		//detect how many spaces (n) are in phrase.
+		int n = 0;
+		for (int i = 0; i < phrase.length(); i++) {
+			if (charPhrase[i] == ' ') {
+				n++;
+			}
+		}
+		
+		//create new char array that has n + 1 number of characters 
+		char[] acro = new char[n + 1];
+		
+		//pull the first letter from each word of the phrase and add it to the new array
+		//use iterator k for acronym array
+		int k = 0;
+		//do first word manually
+		acro[k] = charPhrase[0];
+		k++;
+		//use iterator k for acronym array
+		for (int i = 0; i < phrase.length(); i++) {
+			if (charPhrase[i] == ' ') {
+				acro[k] = charPhrase[i + 1];
+				k++;
+			}
+		}
+		
+		//convert char array to string and make sure new string is all upper case
+		String acroString = new String(acro);
+		acroString = acroString.toUpperCase();
+		
+		//return new string
+		return acroString;
 	}
 
 	/**
