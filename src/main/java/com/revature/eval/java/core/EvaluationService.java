@@ -279,7 +279,7 @@ public class EvaluationService {
 		Map<String, Integer> wordCount = new HashMap<>();
 		
 		//split the words 
-		String[] words = string.split(" ");
+		String[] words = string.split("\\s+");
 		
 		//count the words using a loop
 		for (String str : words) {
@@ -288,13 +288,13 @@ public class EvaluationService {
 			}
 			
 			else {
-				wordCount.put(str, wordCount.
+				wordCount.put(str,(wordCount.get(str) + 1));
 			}
 		
 		}
 		
 		
-		return null;
+		return wordCount;
 	}
 
 	/**
