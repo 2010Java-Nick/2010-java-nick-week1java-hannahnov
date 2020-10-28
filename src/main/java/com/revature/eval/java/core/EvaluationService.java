@@ -283,10 +283,12 @@ public class EvaluationService {
 		
 		//count the words using a loop
 		for (String str : words) {
+		
+			//add word to loop, set count to one if not already in hashmap
 			if (wordCount.get(str) == null) {
 				wordCount.put(str, 1);
 			}
-			
+		
 			else {
 				wordCount.put(str,(wordCount.get(str) + 1));
 			}
@@ -336,8 +338,12 @@ public class EvaluationService {
 		private List<T> sortedList;
 
 		public int indexOf(T t) {
-			// TODO Write an implementation for this method declaration
-			return 0;
+			if (sortedList.isEmpty()) {
+				return 0;
+			}
+			else {
+				return indexOf(t);
+			}
 		}
 
 		public BinarySearch(List<T> sortedList) {
