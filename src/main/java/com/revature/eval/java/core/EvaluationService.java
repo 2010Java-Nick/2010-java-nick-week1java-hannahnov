@@ -2,8 +2,11 @@ package com.revature.eval.java.core;
 
 import java.lang.reflect.Array;
 import java.time.temporal.Temporal;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 
 public class EvaluationService {
@@ -338,12 +341,7 @@ public class EvaluationService {
 		private List<T> sortedList;
 
 		public int indexOf(T t) {
-			if (sortedList.isEmpty()) {
-				return 0;
-			}
-			else {
-				return indexOf(t);
-			}
+			return sortedList.indexOf(t);
 		}
 
 		public BinarySearch(List<T> sortedList) {
@@ -379,8 +377,38 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String toPigLatin(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		//created new array with a size + 2 of the string
+		char[] arr =  string.toCharArray();
+		
+		//determine if the first letter is a consonant or a vowel
+		//use a for loop to transfer the string to the new array
+		char letter = arr[0];
+		char firstLetter;
+		char[] piggy = new char[string.length() + 2];
+		if (letter == 'a' || letter == 'e' || letter == 'i' || letter == 'o' || letter == 'u') {
+			for (int i = 0; i < string.length(); i++) {
+				piggy[i] = arr[i];
+			}
+			piggy[string.length()] = 'a';
+			piggy[string.length() + 1] = 'y';
+			
+		}
+		else { 
+			firstLetter = arr[0];
+			int j = 0;
+			for (int i = 1; i < string.length(); i++) {
+				piggy[j] = arr[i];
+			}
+			piggy[string.length()] = firstLetter;
+			piggy[string.length() + 1] = 'a';
+			piggy[string.length() + 2] = 'y';
+		}
+		
+		//convert back to string and add "a" "y" to the end
+	
+		
+		return piggy.toString();
+
 	}
 
 	/**
@@ -399,8 +427,28 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isArmstrongNumber(int input) {
-		// TODO Write an implementation for this method declaration
-		return false;
+		//find out how many digits are in the number
+		int copy1 = input;
+		int numDigits = 0;
+		while (copy1 != 0) {
+			copy1 /= 10;
+			numDigits++;
+		}
+		//add the sum of the numbers to the power of the number of digits
+		int copy2 = input;
+		int sum = 0;
+		for (int i = 0; i < numDigits; i++) {
+			sum += Math.pow((copy2 % 10), numDigits);
+			copy2 /= 10;
+		}
+		//determine if the sum is the same as the number
+		if (sum == input) {
+			
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	/**
@@ -414,8 +462,10 @@ public class EvaluationService {
 	 * @return
 	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
-		// TODO Write an implementation for this method declaration
-		return null;
+			List<Long> primeFactors = null;
+
+				
+			return primeFactors;
 	}
 
 	/**
@@ -453,10 +503,47 @@ public class EvaluationService {
 		}
 
 		public String rotate(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
-		}
+			char[] arr = string.toCharArray();
+			for (int i = 0; i < string.length(); i++) {
+			char c = arr[i];
+			char result = arr[i];
+			//checks to make sure the char is a letter
+			if (java.lang.Character.isAlphabetic(c)) {
+			int alphaNum = 26; 
+		    int n = (key % alphaNum);
+		    result = (char) (n + c);
+		    // If character input is uppercase
+		    if (java.lang.Character.isUpperCase(c)) { 
+		    if (result < 'A') {
+		    	// adds remainder to alphabet
+		    	result = (char) (result + alphaNum);
+		    }
+		        if (result > 'Z') {
+		        	// subtracts remainder from alphabet
+		            result = (char) (result - alphaNum); 
+		      }
+		    }
+		    
+		    //If character input is lowercase
+		    if (java.lang.Character.isLowerCase(c)) { // If character input is lowercase
+	             if (result < 'a') {
+	                   result = (char) (result + alphaNum);
+	               }
+	           if (result > 'z') {
+	           result = (char) (result - alphaNum);
 
+	                }
+		 
+		}
+   }
+			
+			//if the char is not a letter, is added to the array unchanged
+			//adds new char to array
+	    	arr[i] = result;
+	}
+			return arr.toString();
+	}
+	
 	}
 
 	/**
@@ -566,8 +653,25 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isPangram(String string) {
-		// TODO Write an implementation for this method declaration
-		return false;
+		
+		char[] arr = string.toCharArray();
+		int count = 0;
+		//convert string to upper case for simplicity
+		//and loop through to check if each letter is in the string
+		for (char a = 'A'; java.lang.Character.isAlphabetic(a); a++ ) {
+			for (int i = 0; i < string.length(); i++) {
+				if (java.lang.Character.toUpperCase(arr[i]) == a) {
+					count++;
+					break;
+				}
+			}
+		}
+		if (count < 26) {
+			return false;
+		}
+		else {
+		return true;
+	}
 	}
 
 	/**
