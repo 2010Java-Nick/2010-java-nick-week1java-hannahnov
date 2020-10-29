@@ -1,5 +1,7 @@
 package com.revature.eval.java.core;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.lang.reflect.Array;
 import java.time.temporal.Temporal;
 import java.util.Arrays;
@@ -701,8 +703,17 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int getSumOfMultiples(int i, int[] set) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		
+	
+		int sum = 0;
+		
+		for (i = i--; i > 0; i--)
+		for (int n : set) {
+			if ((i % n) == 0) {
+				sum+= i;
+			}
+		}
+		return sum;
 	}
 
 	/**
@@ -742,7 +753,23 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isLuhnValid(String string) {
-		// TODO Write an implementation for this method declaration
+		//remove all spaces from the string
+		string = string.replaceAll("\\s+", "");
+		
+		
+		//double every second digit, starting from the right
+		//if doubling the number results in a number greater than 9, subtract 9 from product
+		
+		for (int i = 1; i < string.length() - 1; i+=2) {
+			
+		}
+		
+		
+		
+		
+		//add all of the digits together
+		
+		//check to see if divisble by 10
 		return false;
 	}
 
@@ -774,7 +801,13 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int solveWordProblem(String string) {
-		// TODO Write an implementation for this method declaration
+		
+		
+		String temp = string.replaceAll("[^0-9]", "");
+		String[] allNums = temp.split("\\s+");
+		
+		//convert to chars then convert chars to int
+		
 		return 0;
 	}
 
