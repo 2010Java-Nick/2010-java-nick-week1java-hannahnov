@@ -248,6 +248,22 @@ public class EvaluationService {
 	public String cleanPhoneNumber(String string) {
 		// find out how many numbers are in the string and add them to an invalid number
 		char[] invalid = new char[11];
+		
+		char[] tester = string.toCharArray();
+		
+		for (int i = 0; i < string.length(); i++) {
+			if (java.lang.Character.isAlphabetic(tester[i])) {
+				throw new IllegalArgumentException("Not all digits");
+			}
+		}
+		
+		
+		string = string.replaceAll("\\p{Punct}", "");
+		string = string.replaceAll(" ", "");
+		
+		if (string.length() > 11) {
+			throw new IllegalArgumentException("Too many digits");
+		}
 		int count = 0;
 		int j = 0;
 		for (int i = 0; i < string.length(); i++) {
@@ -386,6 +402,11 @@ public class EvaluationService {
 	 */
 	public String toPigLatin(String string) {
 		//created new array with a size + 2 of the string
+		
+		String[] words = string.split("\\s+");
+		
+		//count the words using a loop
+		
 		char[] arr =  string.toCharArray();
 		
 		//determine if the first letter is a consonant or a vowel
@@ -411,7 +432,10 @@ public class EvaluationService {
 				letter = arr[count];
 			}
 		char[] consonants = new char[count];
-		char[] consPig = new char[string.length() + count];
+		for (int i = 0; i < count; i++) {
+			consonants[i] = arr[i];
+		}
+		char[] consPig = new char[string.length() + 2];
 			firstLetter = arr[0];
 			int j = 0;
 			for (int i = (count); i < string.length(); i++) {
@@ -419,7 +443,7 @@ public class EvaluationService {
 				j++;
 			}
 			for (int i = 0; i < count; i++) {
-			consPig[(string.length() - count) + i + 2] = consonants[i];
+			consPig[(string.length() - count) + i] = consonants[i];
 		}
 			
 			consPig[string.length()] = 'a';
@@ -485,24 +509,20 @@ public class EvaluationService {
 	 * @return
 	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
-			List<Long> primeFactors = null;
-	
-			for (long num = 2; num < l; num++) {
-		        boolean flag = false;
-		        for(int i = 2; i <= num/2; ++i)	{
-		            // condition for nonprime number
-		            if(num % i == 0)
-		            {
-		                flag = true;
-		                break;
-		            }
-		        }
 
-		        if (!flag) {
-		        	primeFactors.add(num);
-		        }
-		    
-	}
+		List<Long> primeFactors = new ArrayList<Long>();
+	
+			
+			for (long num = 2; num <= l; num++) {
+		            while(l % num == 0)  {
+		            	if (num > 1) {
+		               primeFactors.add(num);
+		            }
+		           	 l = l / num;
+		           }
+
+		        
+			}
 			return primeFactors;
 	}
 
@@ -599,14 +619,25 @@ public class EvaluationService {
 	 */
 	public int calculateNthPrime(int i) {
 		
-		int count;
+		if (i == 0) {
+			throw new IllegalArgumentException("Cannot enter zero");
+		}
 		
-		for (int n = 0; n < i; n++) {
-			
+		List<Integer> primeFactors = new ArrayList<Integer>();
+		int l = i;
+		
+		for (int num = 2; num <= i; num++) {
+	            while(l % num == 0)  {
+	            	if (num > 1) {
+	               primeFactors.add(num);
+	            }
+	           	 l = l / num;
+	           }
+
+	        
 		}
-		for (int n = 2; n <= i / 2; i++) {
-		}
-		return 0;
+	int nth = primeFactors.get(i);
+	return nth;
 	}
 
 	/**
