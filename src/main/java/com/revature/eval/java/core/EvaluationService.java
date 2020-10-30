@@ -3,13 +3,20 @@ package com.revature.eval.java.core;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.lang.reflect.Array;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
+import java.time.temporal.TemporalAmount;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.Set;
 
 public class EvaluationService {
 
@@ -245,8 +252,7 @@ public class EvaluationService {
 		int j = 0;
 		for (int i = 0; i < string.length(); i++) {
 			char temp = string.charAt(i);
-			if (temp == '1'|| temp == '2' || temp == '3' || temp == '4' || temp == '5' || temp == '6'
-					|| temp == '7' || temp == '8' || temp == '9' || temp == '0' ) {
+			if (java.lang.Character.isDigit(temp) ) {
 				count++;
 				invalid[j] = temp;
 				j++;
@@ -386,30 +392,45 @@ public class EvaluationService {
 		//use a for loop to transfer the string to the new array
 		char letter = arr[0];
 		char firstLetter;
-		char[] piggy = new char[string.length() + 2];
+		char[] vowelPig = new char[string.length() + 2];
 		if (letter == 'a' || letter == 'e' || letter == 'i' || letter == 'o' || letter == 'u') {
 			for (int i = 0; i < string.length(); i++) {
-				piggy[i] = arr[i];
+				vowelPig[i] = arr[i];
 			}
-			piggy[string.length()] = 'a';
-			piggy[string.length() + 1] = 'y';
+			vowelPig[string.length()] = 'a';
+			vowelPig[string.length() + 1] = 'y';
 			
+			String newString = new String(vowelPig);
+		
+			return newString;
 		}
-		else { 
+		else {
+			int count = 0;
+			while (letter != 'a' && letter != 'e' && letter != 'i' && letter != 'o' && letter != 'u') {
+				count++;
+				letter = arr[count];
+			}
+		char[] consonants = new char[count];
+		char[] consPig = new char[string.length() + count];
 			firstLetter = arr[0];
 			int j = 0;
-			for (int i = 1; i < string.length(); i++) {
-				piggy[j] = arr[i];
+			for (int i = (count); i < string.length(); i++) {
+				consPig[j] = arr[i];
+				j++;
 			}
-			piggy[string.length()] = firstLetter;
-			piggy[string.length() + 1] = 'a';
-			piggy[string.length() + 2] = 'y';
+			for (int i = 0; i < count; i++) {
+			consPig[(string.length() - count) + i + 2] = consonants[i];
 		}
+			
+			consPig[string.length()] = 'a';
+			consPig[string.length() + 1] = 'y';
+
 		
 		//convert back to string and add "a" "y" to the end
 	
-		
-		return piggy.toString();
+		String newString = new String(consPig);
+		return newString;
+		}
 
 	}
 
@@ -465,8 +486,23 @@ public class EvaluationService {
 	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
 			List<Long> primeFactors = null;
+	
+			for (long num = 2; num < l; num++) {
+		        boolean flag = false;
+		        for(int i = 2; i <= num/2; ++i)	{
+		            // condition for nonprime number
+		            if(num % i == 0)
+		            {
+		                flag = true;
+		                break;
+		            }
+		        }
 
-				
+		        if (!flag) {
+		        	primeFactors.add(num);
+		        }
+		    
+	}
 			return primeFactors;
 	}
 
@@ -543,7 +579,8 @@ public class EvaluationService {
 			//adds new char to array
 	    	arr[i] = result;
 	}
-			return arr.toString();
+			String rotated = new String(arr);
+			return rotated;
 	}
 	
 	}
@@ -561,7 +598,14 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int calculateNthPrime(int i) {
-		// TODO Write an implementation for this method declaration
+		
+		int count;
+		
+		for (int n = 0; n < i; n++) {
+			
+		}
+		for (int n = 2; n <= i / 2; i++) {
+		}
 		return 0;
 	}
 
@@ -598,8 +642,41 @@ public class EvaluationService {
 		 * @return
 		 */
 		public static String encode(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+			
+		
+			string = string.toLowerCase();
+			string = string.replaceAll(" ", "");
+			string = string.replaceAll("\\p{Punct}", "");
+			char[] arr = string.toCharArray();
+			char[] newMessage = new char[string.length() + (string.length() / 5)];
+			for (int i = 0; i < string.length(); i++) {
+				if (java.lang.Character.isAlphabetic(arr[i])){
+				char start = 'a';
+				char end = 'z';
+				int diff = (int) start - arr[i];
+				char newChar = (char) (end + diff);
+				arr[i] = newChar;
+				}
+				}
+			
+			newMessage[0] = arr[0];
+			int accountable = 5;
+			int otherCount = 1;
+			int j = 1;
+			for (int i = 1; i < string.length() + (string.length() / 5); i++) {
+				if (i == accountable) {
+					newMessage[i] = ' ';
+					accountable = (accountable * 2) + otherCount;
+					otherCount++;
+				}
+				else {
+					newMessage[i] = arr[j];
+					j++;
+				}
+			}
+			
+			String newString = new String(newMessage);
+			return newString;
 		}
 
 		/**
@@ -609,8 +686,21 @@ public class EvaluationService {
 		 * @return
 		 */
 		public static String decode(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+			string = string.replaceAll(" ", "");
+			char[] arr = string.toCharArray();
+			char[] decoded = new char[string.length()];
+			for (int i = 0; i < string.length(); i++) {
+				if (java.lang.Character.isAlphabetic(arr[i])){
+				char start = 'a';
+				char end = 'z';
+				int diff = (int) start - arr[i];
+				char newChar = (char) (end + diff);
+				decoded[i] = newChar;
+				}
+				}
+			
+			String newString = new String(decoded);
+			return newString;
 		}
 	}
 
@@ -637,7 +727,43 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isValidIsbn(String string) {
-		// TODO Write an implementation for this method declaration
+		
+		string = string.replaceAll("\\p{Punct}", "");
+		
+		char[] charArr = string.toCharArray();
+		
+		int sum = 0;
+		
+		int j = 10;
+		for (int i = 0; i < string.length() - 1; i++) {
+			int p = (int)charArr[i];
+			sum += (p * j);
+			j--;
+		}
+		
+		if (java.lang.Character.isDigit(charArr[string.length() - 1])) {
+			sum += (charArr[string.length() - 1]);
+			if (sum % 11 == 0) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		
+		if (java.lang.Character.isAlphabetic(charArr[string.length() - 1])) {
+			if (charArr[string.length() - 1] == 'X') {
+				sum += 10;
+				if (sum % 11 == 0) {
+					return true;
+				}
+				else {
+					return false;
+				}
+			}
+		}
+	
+		
 		return false;
 	}
 
@@ -685,8 +811,19 @@ public class EvaluationService {
 	 * @return
 	 */
 	public Temporal getGigasecondDate(Temporal given) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		
+		if (!(given instanceof LocalDateTime)) {
+			LocalDate newLocal = (LocalDate) given;
+			LocalDateTime later = LocalDateTime.of(newLocal.getYear(), newLocal.getMonth(),newLocal.getDayOfMonth(), 0 , 0 , 0 );
+			return (Temporal) later.plusSeconds(1000000000);
+		}
+		
+		else  {
+		Temporal later = given.plus(1000000000, ChronoUnit.SECONDS);
+		return later;
+		}
+		
+		
 	}
 
 	/**
@@ -704,15 +841,30 @@ public class EvaluationService {
 	 */
 	public int getSumOfMultiples(int i, int[] set) {
 		
+	//create a hashmap to store the words and their occurrences
 	
+		Map<Integer, Integer> multiples = new HashMap<>();
+			
 		int sum = 0;
-		
-		for (i = i--; i > 0; i--)
-		for (int n : set) {
-			if ((i % n) == 0) {
-				sum+= i;
+		for (i = i--; i > 0; i--) {
+			for (int n : set) {
+				if ((i % n) == 0) {
+					if (multiples.get(i) == null) {
+						multiples.put(i, n);
+					}
+					else {
+						multiples.put(i, multiples.get(i) + 1);
+					}
+				
+			}
 			}
 		}
+		for (Map.Entry<Integer, Integer> entry : multiples.entrySet()) {
+			sum += entry.getKey();
+  
+        }
+		
+	
 		return sum;
 	}
 
@@ -755,21 +907,31 @@ public class EvaluationService {
 	public boolean isLuhnValid(String string) {
 		//remove all spaces from the string
 		string = string.replaceAll("\\s+", "");
-		
-		
-		//double every second digit, starting from the right
-		//if doubling the number results in a number greater than 9, subtract 9 from product
-		
-		for (int i = 1; i < string.length() - 1; i+=2) {
+		char[] arr = string.toCharArray();
+		int[] intArr = new int[string.length()];
+		 for (int i = string.length() - 1; i >= 0; i--) {
+			 if ((string.length() - i) % 2 == 0) {
+				 int q = Character.getNumericValue(arr[i]);
+				 q *= 2;
+				 if (q > 9) {
+					 q -= 9;
+				 }
+				 intArr[i] = q;
+			 }
+			 else {
+				 intArr[i] = Character.getNumericValue(arr[i]);
+			 }
+	
 			
 		}
+		int sum = 0;
+		for (int i = 0; i < string.length(); i++) {
+			sum += intArr[i];
+		}
 		
-		
-		
-		
-		//add all of the digits together
-		
-		//check to see if divisble by 10
+		if (sum % 10 == 0) {
+			return true;
+		}
 		return false;
 	}
 
@@ -803,11 +965,12 @@ public class EvaluationService {
 	public int solveWordProblem(String string) {
 		
 		
-		String temp = string.replaceAll("[^0-9]", "");
-		String[] allNums = temp.split("\\s+");
+		Pattern p = Pattern.compile("-?\\d+");
+		Matcher m = p.matcher(string);
 		
-		//convert to chars then convert chars to int
-		
+		while (m.find()) {
+			String q = m.group();
+		}
 		return 0;
 	}
 
