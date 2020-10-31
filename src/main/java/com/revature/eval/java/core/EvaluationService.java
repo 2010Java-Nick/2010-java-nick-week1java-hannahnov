@@ -424,14 +424,14 @@ public class EvaluationService {
 		//use a for loop to transfer the string to the new array
 		char letter = arr[0];
 		char firstLetter;
-		char[] vowelPig = new char[string.length() + 2];
+		char[] vowelPig = new char[str.length() + 2];
 		if (letter == 'a' || letter == 'e' || letter == 'i' || letter == 'o' || letter == 'u') {
-			for (int i = 0; i < string.length(); i++) {
+			for (int i = 0; i < str.length(); i++) {
 				vowelPig[i] = arr[i];
 			}
-			vowelPig[string.length()] = 'a';
+			vowelPig[str.length()] = 'a';
 			extraLetterCount++;
-			vowelPig[string.length() + 1] = 'y';
+			vowelPig[str.length() + 1] = 'y';
 			extraLetterCount++;
 			
 			String newString = new String(vowelPig);
@@ -452,24 +452,25 @@ public class EvaluationService {
 					letter = arr[count];
 				
 			}
+			}
 		char[] consonants = new char[count];
 		for (int i = 0; i < count; i++) {
 			consonants[i] = arr[i];
 		}
-		char[] consPig = new char[string.length() + 2];
+		char[] consPig = new char[str.length() + 2];
 			firstLetter = arr[0];
 			int j = 0;
-			for (int i = (count); i < string.length(); i++) {
+			for (int i = (count); i < str.length(); i++) {
 				consPig[j] = arr[i];
 				j++;
 			}
 			for (int i = 0; i < count; i++) {
-			consPig[(string.length() - count) + i] = consonants[i];
+			consPig[(str.length() - count) + i] = consonants[i];
 		}
 			
-			consPig[string.length()] = 'a';
+			consPig[str.length()] = 'a';
 			extraLetterCount++;
-			consPig[string.length() + 1] = 'y';
+			consPig[str.length() + 1] = 'y';
 			extraLetterCount++;
 
 		
@@ -479,21 +480,23 @@ public class EvaluationService {
 		totalPhrase += newString;
 			}
 		}
-		}
 		char[] arr21 = string.toCharArray();
 		char[] arrTotal = totalPhrase.toCharArray();
 		char[] finalPhrase = new char[string.length() + extraLetterCount];
 		
-		int j = 0;
+		int j = 1;
 		int p = 0;
-		for (int i = 0; i < string.length() + extraLetterCount; i++ ) {
+		for (int i = 0; i < string.length() + extraLetterCount; i++) {
 			if (arr21[j] == ' ') {
 				finalPhrase[i + 2] = ' ';
-				j += 2;
+				j++;
 			}
 			else {
 				finalPhrase[i] = arrTotal[p];
 				p++;
+				if (i % 2 == 0) {
+				j++;
+				}
 			}
 		}
 		String afterAll = new String(finalPhrase);
