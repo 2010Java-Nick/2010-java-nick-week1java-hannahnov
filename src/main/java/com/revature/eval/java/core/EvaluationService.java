@@ -744,8 +744,8 @@ public class EvaluationService {
 			for (int i = 1; i < string.length() + (string.length() / 5); i++) {
 				if (i == accountable) {
 					newMessage[i] = ' ';
-					accountable = (accountable * 2) + otherCount;
-					otherCount++;
+					accountable = (accountable + 5) + otherCount;
+			
 				}
 				else {
 					newMessage[i] = arr[j];
