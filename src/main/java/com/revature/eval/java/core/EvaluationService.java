@@ -405,9 +405,20 @@ public class EvaluationService {
 		
 		String[] words = string.split("\\s+");
 		
-		//count the words using a loop
+		String totalPhrase = new String();
 		
-		char[] arr =  string.toCharArray();
+		
+		int spaceCount = -1;
+		int extraLetterCount = 0;
+		
+		for (String str : words) {
+			spaceCount++;
+		}
+		
+		
+		//count the words using a loop
+		for (String str : words) {
+		char[] arr =  str.toCharArray();
 		
 		//determine if the first letter is a consonant or a vowel
 		//use a for loop to transfer the string to the new array
@@ -419,17 +430,27 @@ public class EvaluationService {
 				vowelPig[i] = arr[i];
 			}
 			vowelPig[string.length()] = 'a';
+			extraLetterCount++;
 			vowelPig[string.length() + 1] = 'y';
+			extraLetterCount++;
 			
 			String newString = new String(vowelPig);
 		
-			return newString;
+			totalPhrase += newString;
 		}
 		else {
 			int count = 0;
-			while (letter != 'a' && letter != 'e' && letter != 'i' && letter != 'o' && letter != 'u') {
+			if (letter == 'q') {
+			while (letter != 'a' && letter != 'e' && letter != 'i' && letter != 'o') {
 				count++;
 				letter = arr[count];
+			}
+			}
+			else {
+				while (letter != 'a' && letter != 'e' && letter != 'i' && letter != 'o' && letter != 'u') {
+					count++;
+					letter = arr[count];
+				
 			}
 		char[] consonants = new char[count];
 		for (int i = 0; i < count; i++) {
@@ -447,14 +468,37 @@ public class EvaluationService {
 		}
 			
 			consPig[string.length()] = 'a';
+			extraLetterCount++;
 			consPig[string.length() + 1] = 'y';
+			extraLetterCount++;
 
 		
 		//convert back to string and add "a" "y" to the end
 	
 		String newString = new String(consPig);
-		return newString;
+		totalPhrase += newString;
+			}
 		}
+		}
+		char[] arr21 = string.toCharArray();
+		char[] arrTotal = totalPhrase.toCharArray();
+		char[] finalPhrase = new char[string.length() + extraLetterCount];
+		
+		int j = 0;
+		int p = 0;
+		for (int i = 0; i < string.length() + extraLetterCount; i++ ) {
+			if (arr21[j] == ' ') {
+				finalPhrase[i + 2] = ' ';
+				j += 2;
+			}
+			else {
+				finalPhrase[i] = arrTotal[p];
+				p++;
+			}
+		}
+		String afterAll = new String(finalPhrase);
+		
+		return afterAll;
 
 	}
 
